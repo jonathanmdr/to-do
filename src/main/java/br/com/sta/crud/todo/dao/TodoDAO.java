@@ -7,40 +7,70 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 /**
- *
- * @author jonat_000
+ * Classe responsável pela comunicação com a base de dados realizando as operações CRUD.
+ * @author Jonathan H. Medeiros
  */
 public class TodoDAO {
     
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
+    /**
+     * Método responsável por injetar as dependências necessárias da classe.
+     * @author Jonathan H. Medeiros
+     */
     public TodoDAO() {
         this.entityManager = ManagerFactory.getInstance().getEntityManager();
     }
     
+    /**
+     * Método responsável por realizar consulta por ID.
+     * @param id - ID do todo pesquisado.
+     * @return model todo.
+     * @author Jonathan H. Medeiros
+     */
     public Todo findById(Long id) {
         Query query = entityManager.createQuery("From ".concat(Todo.class.getName()).concat(" Where id = ?1"));
         query.setParameter(1, id);
         return (Todo) query.getSingleResult();
     }
     
+    /**
+     * Método responsável por realizar a busca de todos os todo's.
+     * @return - Lista de todo's.
+     * @author Jonathan H. Medeiros
+     */
     public List<Todo> findAll() {
         Query query = entityManager.createQuery("From ".concat(Todo.class.getName()));
         return (List<Todo>) query.getResultList();
     }
 
+    /**
+     * Método responsável por salvar um todo.
+     * @param todo - model todo
+     * @author Jonathan H. Medeiros
+     */
     public void save(Todo todo) {
         entityManager.getTransaction().begin();
         entityManager.persist(todo);
         entityManager.getTransaction().commit();
     }
     
+    /**
+     * Método responsável por atualizar um todo.
+     * @param todo - model todo
+     * @author Jonathan H. Medeiros
+     */
     public void update(Todo todo) {
         entityManager.getTransaction().begin();
         entityManager.merge(todo);
         entityManager.getTransaction().commit();
     }
 
+    /**
+     * Método responsável por excluir um todo.
+     * @param todo - model todo
+     * @author Jonathan H. Medeiros
+     */
     public void delete(Todo todo) {
         entityManager.getTransaction().begin();
         entityManager.remove(todo);

@@ -16,8 +16,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- *
- * @author jonat_000
+ * Classe de negócio representando a entidade todo do banco de dados.
+ * @author Jonathan H. Medeiros
  */
 @Getter
 @Setter

@@ -3,6 +3,8 @@ package br.com.sta.crud.todo.view;
 import br.com.sta.crud.todo.dao.TodoDAO;
 import br.com.sta.crud.todo.model.Todo;
 import br.com.sta.crud.todo.model.TodoTableModel;
+import br.com.sta.crud.todo.utils.FormState;
+import br.com.sta.crud.todo.utils.Messages;
 import com.toedter.calendar.JDateChooserCellEditor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,14 +14,16 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableColumn;
 
 /**
- *
- * @author jonat_000
+ * Classe responsável por acionar as operações CRUD da classe DAO pertinente ao
+ * model todo.
+ * @author Jonathan H. Medeiros
  */
 public class ListTodo extends javax.swing.JFrame {
 
     private TodoDAO todoDAO;
     private TodoTableModel tableModel;
     private JDateChooserCellEditor dateChooser;
+    private Messages messages;
 
     public ListTodo() {
         initComponents();
@@ -168,6 +172,10 @@ public class ListTodo extends javax.swing.JFrame {
     private javax.swing.JTable jtbTodos;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Método responsável por recuperar o LookAndFell padrão do sistema operacional
+     * @author Jonathan H. Medeiros
+     */
     private static void setLoonkAndFell() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -176,15 +184,25 @@ public class ListTodo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método responsável por injetar as dependências necessárias juntamente 
+     * com as configurações iniciais da classe.
+     * @author Jonathan H. Medeiros
+     */
     private void initApp() {
         todoDAO = new TodoDAO();
         tableModel = new TodoTableModel();
         dateChooser = new JDateChooserCellEditor();
+        messages = Messages.getMessages(this);
 
         formatJTable();
         listar(false);
     }
 
+    /**
+     * Método responsável pela formatação da jTable de listagem de to-do's.
+     * @author Jonathan H. Medeiros
+     */
     private void formatJTable() {
         jtbTodos.setModel(tableModel);
         
@@ -202,50 +220,73 @@ public class ListTodo extends javax.swing.JFrame {
         jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_CONCLUSAO).setPreferredWidth(80);
     }
 
+    /**
+     * Método responsável por realizar a listagem de to-do's na jTable.
+     * @param exibeMensagem - validação para exibir ou não a mensagem de que não
+     * existem dados para listagem.
+     * @author Jonathan H. Medeiros
+     */
     private void listar(boolean exibeMensagem) {
         tableModel.reload(todoDAO.findAll());
 
         if (tableModel.getRowCount() == 0 && exibeMensagem) {
-            JOptionPane.showMessageDialog(this, "Não existem dados para exibir!");
+            messages.messageDialogInformation("Não existem dados para exibir!", "Lista vazia");
         }
     }
 
+    /**
+     * Método responsável por realizar a exclusão dos registros.
+     * @author Jonathan H. Medeiros
+     */
     private void excluir() {
-        if (jtbTodos.getSelectedRow() > 0) {
-            if (JOptionPane.showConfirmDialog(this, "Confirma a exlusão do registro?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (jtbTodos.getSelectedRow() > -1) {
+            if (messages.confirmDialogYesNoOption("Confirma a exlusão do registro?", "Exclusão") == JOptionPane.YES_OPTION) {
 
                 Todo todo = todoDAO.findById((Long) jtbTodos.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
                 todoDAO.delete(todo);
 
                 listar(false);
-
-                JOptionPane.showMessageDialog(this, "Registro excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
+                messages.messageDialogInformation("Registro excluído com sucesso!", "Sucesso");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um registro para exclusão!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            messages.messageDialogWarning("Selecione um registro para exclusão!", "Atenção");
         }
     }
 
+    /**
+     * Método responsável por salvar um novo registro.
+     * @param todo - modelo todo é esperado devidamente preenchido para ser salvo.
+     * @author Jonathan H. Medeiros
+     */
     private void salvar(Todo todo) {
         if (todo.getTitulo() != null && !todo.getTitulo().trim().isEmpty()) {
             todoDAO.save(todo);
             listar(false);
-            JOptionPane.showMessageDialog(this, "Salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            messages.messageDialogInformation("Salvo com sucesso!", "Sucesso");
         }
     }
 
+    /**
+     * Método responsável por realizar a atualização de informaçoes em um registro.
+     * @param todo - modelo todo é esperado devidamente preenchido para ser atualizado.
+     * @author Jonathan H. Medeiros
+     */
     private void atualizar(Todo todo) {
         if (todo.getTitulo() != null && !todo.getTitulo().trim().isEmpty()) {
             todoDAO.update(todo);
             listar(false);
-            JOptionPane.showMessageDialog(this, "Atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            messages.messageDialogInformation("Atualizado com sucesso!", "Sucesso");
         }
     }
 
+    /**
+     * Método responsável por acionar a tela de cadastro de novos registros.
+     * @author Jonathan H. Medeiros
+     */
     private void novo() {
         Todo todo = new Todo();
-        EditTodo editTodo = new EditTodo(this, true, todo, false);
+        EditTodo editTodo = new EditTodo(this, true, todo, FormState.INCLUSAO);
         editTodo.setVisible(true);
 
         editTodo.addWindowListener(new WindowAdapter() {
@@ -258,10 +299,15 @@ public class ListTodo extends javax.swing.JFrame {
         });       
     }
 
+    /**
+     * Método responsável por acinar a tela de cadastro de registro devidamente
+     * preenchido com o registro que foi previamente selecionado para editar.
+     * @author Jonathan H. Medeiros
+     */
     private void editar() {
-        if (jtbTodos.getSelectedRow() > 0) {
+        if (jtbTodos.getSelectedRow() > -1) {
             Todo todo = todoDAO.findById((Long) jtbTodos.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
-            EditTodo editTodo = new EditTodo(this, true, todo, true);
+            EditTodo editTodo = new EditTodo(this, true, todo, FormState.ALTERACAO);
             editTodo.setVisible(true);
 
             editTodo.addWindowListener(new WindowAdapter() {
@@ -273,7 +319,7 @@ public class ListTodo extends javax.swing.JFrame {
                 }
             });            
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um registro para exclusão!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            messages.messageDialogWarning("Selecione um registro para edição!", "Atenção");
         }
     }
 

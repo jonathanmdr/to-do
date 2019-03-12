@@ -5,9 +5,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
 /**
- * Permite todos os tipos de caracteres, inclusive espaços
- * apenas limita a quantidade de dígitos por campo
- * @author jhenrique
+ * Classe responsável por limitar a quantidade de caracteres em um campo, a mesma
+ * permite todos os caracteres, inclusive espaços.
+ * @author Jonathan H. Medeiros
  */
 public class LimitDocument extends PlainDocument{
     private int tamanhoMax = 10;
@@ -15,6 +15,7 @@ public class LimitDocument extends PlainDocument{
     public LimitDocument(int tamanhoMax){
         this.tamanhoMax = tamanhoMax;
     }
+    
     @Override
     public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
         if (str == null) {
