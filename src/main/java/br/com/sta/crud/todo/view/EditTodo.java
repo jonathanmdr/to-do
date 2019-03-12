@@ -15,6 +15,14 @@ public class EditTodo extends javax.swing.JDialog {
     private final boolean EDITANDO;
     public boolean BTN_CANCEL_PRESS;
     
+    /**
+     * Método construtor da classe
+     * @param parent - frame que originou a instância desta classe
+     * @param modal - informa se essa classe é uma modal
+     * @param todo - modelo de todo
+     * @param edit - true indica estado de esdição e false estados de cadastro
+     * @author Jonathan H. Medeiros
+     */
     public EditTodo(Frame parent, boolean modal, Todo todo, boolean edit) {
         super(parent, modal);
         initComponents();
@@ -193,6 +201,12 @@ public class EditTodo extends javax.swing.JDialog {
     private javax.swing.JTextField jTFid;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Método responsável por montar o modelo de todo de acordo com as informações
+     * digitadas no formulário de cadastro de to-do's.
+     * @return model todo
+     * @author Jonathan H. Medeiros
+     */
     private Todo getTodo() {
         if (this.EDITANDO) {
             this.todo.setId(Long.parseLong(jTFid.getText()));
@@ -212,6 +226,12 @@ public class EditTodo extends javax.swing.JDialog {
         return this.todo;
     }
     
+    /**
+     * Método responsável por apresentar as informações do modelo de todo 
+     * recebido por parâmetro no formulário de cadastro.
+     * @param todo - model todo
+     * @author Jonathan H. Medeiros
+     */
     private void setTodo(Todo todo) {
         if (todo.getId() != null ) {
             jTFid.setText(Long.toString(todo.getId()));
@@ -225,10 +245,21 @@ public class EditTodo extends javax.swing.JDialog {
         }
     }
     
+    /**
+     * Método responsável por validar se os campos obrigatórios foram devidamente preenchidos.
+     * @return true se campos obrigatórios estão vazios e false se estiverem preenchidos. 
+     * @author Jonathan H. Medeiros
+     */
     private boolean validaCamposObrigatorios() {
         return jTFTitulo.getText().trim().isEmpty();
     }
     
+    /**
+     * Método responsável por recuperar as informações através do getTodo() caso
+     * a validação do método validaCamposObrigatorios() tenha retornado false.
+     * O mesmo acionado sempre pelo evento click do botão salvar.
+     * @author Jonathan H. Medeiros
+     */
     public void returnTodo() {
         if (validaCamposObrigatorios()) {
             return;
@@ -238,6 +269,12 @@ public class EditTodo extends javax.swing.JDialog {
         this.dispose();
     }
 
+    /**
+     * Método responsável por atribuir a data de conclusão quando a task estiver 
+     * com o flag de conclusão selecionado.
+     * @return data de conslusão da task.
+     * @author Jonathan H. Medeiros
+     */
     private Date retornaDataConclusao() {
         Date data = null;
         
@@ -248,6 +285,10 @@ public class EditTodo extends javax.swing.JDialog {
         return data;
     }
 
+    /**
+     * Método responsável por realizar as configurações iniciais da classe.
+     * @author Jonathan H. Medeiros
+     */
     private void initApp() {
         jTFTitulo.setDocument(new LimitDocument(100));
         jTADescricao.setDocument(new LimitDocument(300));

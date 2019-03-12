@@ -6,8 +6,8 @@ import javax.persistence.Persistence;
 import lombok.Getter;
 
 /**
- *
- * @author jonat_000
+ * Clásse responsável por criar uma EntityManager Singleton a partir da Persistence Unit.
+ * @author Jonathan H. Medeiros
  */
 public class ManagerFactory {
     

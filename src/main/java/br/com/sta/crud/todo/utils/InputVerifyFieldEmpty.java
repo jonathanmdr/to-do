@@ -9,8 +9,9 @@ import net.java.balloontip.BalloonTip;
 import net.java.balloontip.utils.TimingUtils;
 
 /**
- *
- * @author jonat_000
+ * Classe responsável por validar campos vazios e aplicar uma borda de atenção
+ * juntamente com uma mensagem informativa de campo obrigatório.
+ * @author Jonathan H. Medeiros
  */
 public class InputVerifyFieldEmpty extends InputVerifier {
 

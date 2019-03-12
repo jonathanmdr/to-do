@@ -5,8 +5,8 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
- * @author jonat_000
+ * Classe responsável por abstrair um TableModel para exibição de dados em uma jTable.
+ * @author Jonathan H. Medeiros
  */
 public class TodoTableModel extends AbstractTableModel {
     
@@ -20,7 +20,7 @@ public class TodoTableModel extends AbstractTableModel {
 
     private final String[] colNames = {"Código", "Título", "Criação", "Alteração", "Conclusão"};
 
-    private Class<?>[] colTypes = {Long.class, String.class, Date.class, Date.class, Date.class};
+    private final Class<?>[] colTypes = {Long.class, String.class, Date.class, Date.class, Date.class};
 
     public TodoTableModel() {
     }
