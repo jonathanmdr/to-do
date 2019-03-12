@@ -3,6 +3,7 @@ package br.com.sta.crud.todo.view;
 import br.com.sta.crud.todo.dao.TodoDAO;
 import br.com.sta.crud.todo.model.Todo;
 import br.com.sta.crud.todo.model.TodoTableModel;
+import br.com.sta.crud.todo.utils.FormState;
 import com.toedter.calendar.JDateChooserCellEditor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,8 +13,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableColumn;
 
 /**
- *
- * @author jonat_000
+ * Classe responsável por acionar as operações CRUD da classe DAO pertinente ao
+ * model todo.
+ * @author Jonathan H. Medeiros
  */
 public class ListTodo extends javax.swing.JFrame {
 
@@ -234,7 +236,7 @@ public class ListTodo extends javax.swing.JFrame {
      * @author Jonathan H. Medeiros
      */
     private void excluir() {
-        if (jtbTodos.getSelectedRow() > 0) {
+        if (jtbTodos.getSelectedRow() > -1) {
             if (JOptionPane.showConfirmDialog(this, "Confirma a exlusão do registro?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
                 Todo todo = todoDAO.findById((Long) jtbTodos.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
@@ -282,7 +284,7 @@ public class ListTodo extends javax.swing.JFrame {
      */
     private void novo() {
         Todo todo = new Todo();
-        EditTodo editTodo = new EditTodo(this, true, todo, false);
+        EditTodo editTodo = new EditTodo(this, true, todo, FormState.INCLUSAO);
         editTodo.setVisible(true);
 
         editTodo.addWindowListener(new WindowAdapter() {
@@ -301,9 +303,9 @@ public class ListTodo extends javax.swing.JFrame {
      * @author Jonathan H. Medeiros
      */
     private void editar() {
-        if (jtbTodos.getSelectedRow() > 0) {
+        if (jtbTodos.getSelectedRow() > -1) {
             Todo todo = todoDAO.findById((Long) jtbTodos.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
-            EditTodo editTodo = new EditTodo(this, true, todo, true);
+            EditTodo editTodo = new EditTodo(this, true, todo, FormState.ALTERACAO);
             editTodo.setVisible(true);
 
             editTodo.addWindowListener(new WindowAdapter() {
@@ -315,7 +317,7 @@ public class ListTodo extends javax.swing.JFrame {
                 }
             });            
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um registro para exclusão!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecione um registro para edição!", "Atenção", JOptionPane.WARNING_MESSAGE);
         }
     }
 
