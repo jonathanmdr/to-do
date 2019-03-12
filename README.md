@@ -17,7 +17,7 @@ A aplicação toda consiste em duas únicas telas, uma tela de listagem de taref
  - Botão "Excluir" para exclusão de registros existentes.
  - Botão "Listar" para listagem de registros cadastrados.
  
- ##### Obsersações: 
+ ##### Observações: 
  A tela atualiza a lista de registros automaticamente para todas as operações e exibe mensagens únicas de confirmação para cada tipo de operação realizada.
  
  #### Tela Cadastro to-do:
