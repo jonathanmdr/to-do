@@ -4,6 +4,7 @@ import br.com.sta.crud.todo.dao.TodoDAO;
 import br.com.sta.crud.todo.model.Todo;
 import br.com.sta.crud.todo.model.TodoTableModel;
 import br.com.sta.crud.todo.utils.FormState;
+import br.com.sta.crud.todo.utils.Messages;
 import com.toedter.calendar.JDateChooserCellEditor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -22,6 +23,7 @@ public class ListTodo extends javax.swing.JFrame {
     private TodoDAO todoDAO;
     private TodoTableModel tableModel;
     private JDateChooserCellEditor dateChooser;
+    private Messages messages;
 
     public ListTodo() {
         initComponents();
@@ -191,6 +193,7 @@ public class ListTodo extends javax.swing.JFrame {
         todoDAO = new TodoDAO();
         tableModel = new TodoTableModel();
         dateChooser = new JDateChooserCellEditor();
+        messages = Messages.getMessages(this);
 
         formatJTable();
         listar(false);
@@ -227,7 +230,7 @@ public class ListTodo extends javax.swing.JFrame {
         tableModel.reload(todoDAO.findAll());
 
         if (tableModel.getRowCount() == 0 && exibeMensagem) {
-            JOptionPane.showMessageDialog(this, "Não existem dados para exibir!");
+            messages.messageDialogInformation("Não existem dados para exibir!", "Lista vazia");
         }
     }
 
@@ -237,18 +240,17 @@ public class ListTodo extends javax.swing.JFrame {
      */
     private void excluir() {
         if (jtbTodos.getSelectedRow() > -1) {
-            if (JOptionPane.showConfirmDialog(this, "Confirma a exlusão do registro?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (messages.confirmDialogYesNoOption("Confirma a exlusão do registro?", "Exclusão") == JOptionPane.YES_OPTION) {
 
                 Todo todo = todoDAO.findById((Long) jtbTodos.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
                 todoDAO.delete(todo);
 
                 listar(false);
-
-                JOptionPane.showMessageDialog(this, "Registro excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
+                messages.messageDialogInformation("Registro excluído com sucesso!", "Sucesso");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um registro para exclusão!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            messages.messageDialogWarning("Selecione um registro para exclusão!", "Atenção");
         }
     }
 
@@ -261,7 +263,7 @@ public class ListTodo extends javax.swing.JFrame {
         if (todo.getTitulo() != null && !todo.getTitulo().trim().isEmpty()) {
             todoDAO.save(todo);
             listar(false);
-            JOptionPane.showMessageDialog(this, "Salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            messages.messageDialogInformation("Salvo com sucesso!", "Sucesso");
         }
     }
 
@@ -274,7 +276,7 @@ public class ListTodo extends javax.swing.JFrame {
         if (todo.getTitulo() != null && !todo.getTitulo().trim().isEmpty()) {
             todoDAO.update(todo);
             listar(false);
-            JOptionPane.showMessageDialog(this, "Atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            messages.messageDialogInformation("Atualizado com sucesso!", "Sucesso");
         }
     }
 
@@ -317,7 +319,7 @@ public class ListTodo extends javax.swing.JFrame {
                 }
             });            
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um registro para edição!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            messages.messageDialogWarning("Selecione um registro para edição!", "Atenção");
         }
     }
 
