@@ -22,7 +22,7 @@ A aplicação toda consiste em duas únicas telas, uma tela de listagem de taref
  
  #### Tela Cadastro to-do:
  - Botão "Salvar" para salvar um novo registro ou um registro editado.
- - Botão "cancelar" para cancelar a operação de cadastro ou edição.
+ - Botão "Cancelar" para cancelar a operação de cadastro ou edição.
  
  ##### Observações: 
  A tela possuí validação de campos obrigatórios, não permitindo que um registro seja salvo sem conter as informações obrigatórias, ao tentar salvar um registro com informações faltantes o campo obrigatório ficará marcado com uma borda vermelha e um balão de mensagem informando a obrigatoriedade de preenchimeto do campo em questão.
