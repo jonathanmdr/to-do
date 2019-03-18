@@ -260,7 +260,7 @@ public class ListTodo extends javax.swing.JFrame {
      * @author Jonathan H. Medeiros
      */
     private void salvar(Todo todo) {
-        if (todo.getTitulo() != null && !todo.getTitulo().trim().isEmpty()) {
+        if (validarCamposObrigatoriosVazios(todo)) {
             todoDAO.save(todo);
             listar(false);
             messages.messageDialogInformation("Salvo com sucesso!", "Sucesso");
@@ -273,11 +273,27 @@ public class ListTodo extends javax.swing.JFrame {
      * @author Jonathan H. Medeiros
      */
     private void atualizar(Todo todo) {
-        if (todo.getTitulo() != null && !todo.getTitulo().trim().isEmpty()) {
+        if (validarCamposObrigatoriosVazios(todo)) {
             todoDAO.update(todo);
             listar(false);
             messages.messageDialogInformation("Atualizado com sucesso!", "Sucesso");
         }
+    }
+    
+    /**
+     * Método responsável por verificar se os campos obrigatóriso estão
+     * devidamente preenchidos para realizar as operações de savar e atualizar.
+     * @param todo - Recebe o modelo para validação dos atributos que são obrigatórios.
+     * @return true se todos os campos estivrerem devidamente preenchidos e false
+     * caso algum campo obrigatório esteja nulo ou vazio.
+     * @author Jonathan H. Medeiros
+     */
+    private boolean validarCamposObrigatoriosVazios(Todo todo) {
+        if (todo.getTitulo() != null && !todo.getTitulo().trim().isEmpty()) {
+            return false;
+        }
+        
+        return true;
     }
 
     /**
