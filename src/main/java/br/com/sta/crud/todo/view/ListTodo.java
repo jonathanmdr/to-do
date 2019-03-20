@@ -5,6 +5,7 @@ import br.com.sta.crud.todo.model.Todo;
 import br.com.sta.crud.todo.model.TodoTableModel;
 import br.com.sta.crud.todo.utils.FormState;
 import br.com.sta.crud.todo.utils.Messages;
+import br.com.sta.crud.todo.utils.TableRenderer;
 import com.toedter.calendar.JDateChooserCellEditor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -23,6 +24,7 @@ public class ListTodo extends javax.swing.JFrame {
     private TodoDAO todoDAO;
     private TodoTableModel tableModel;
     private JDateChooserCellEditor dateChooser;
+    private TableRenderer renderer;
     private Messages messages;
 
     public ListTodo() {
@@ -193,6 +195,7 @@ public class ListTodo extends javax.swing.JFrame {
         todoDAO = new TodoDAO();
         tableModel = new TodoTableModel();
         dateChooser = new JDateChooserCellEditor();
+        renderer = new TableRenderer();
         messages = Messages.getMessages(this);
 
         formatJTable();
@@ -209,6 +212,7 @@ public class ListTodo extends javax.swing.JFrame {
         TableColumn colDataCriacao = jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_CRIACAO);
         TableColumn colDataEdicao = jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_EDICAO);
         TableColumn colDataConclusao = jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_CONCLUSAO);
+        
         colDataCriacao.setCellEditor(dateChooser);
         colDataEdicao.setCellEditor(dateChooser);
         colDataConclusao.setCellEditor(dateChooser);
@@ -218,6 +222,10 @@ public class ListTodo extends javax.swing.JFrame {
         jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_CRIACAO).setPreferredWidth(80);
         jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_EDICAO).setPreferredWidth(80);
         jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_CONCLUSAO).setPreferredWidth(80);
+        
+        for (int collumn = 0; collumn < tableModel.getColumnCount(); collumn ++) {
+            jtbTodos.setDefaultRenderer(jtbTodos.getColumnClass(collumn), renderer);
+        }
     }
 
     /**
@@ -290,10 +298,10 @@ public class ListTodo extends javax.swing.JFrame {
      */
     private boolean validarCamposObrigatoriosVazios(Todo todo) {
         if (todo.getTitulo() != null && !todo.getTitulo().trim().isEmpty()) {
-            return false;
+            return true;
         }
         
-        return true;
+        return false;
     }
 
     /**
