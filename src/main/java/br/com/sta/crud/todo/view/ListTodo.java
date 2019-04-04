@@ -251,7 +251,7 @@ public class ListTodo extends javax.swing.JFrame {
         if (jtbTodos.getSelectedRow() > -1) {
             if (messages.confirmDialogYesNoOption("Confirma a exlusão do registro?", "Exclusão") == JOptionPane.YES_OPTION) {
 
-                Todo todo = todoDAO.findById((Long) jtbTodos.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
+                Todo todo = todoDAO.findById(getIdTodo());
                 todoDAO.delete(todo);
 
                 listar(IGNORA_MSG_LISTA_VAZIA);
@@ -331,7 +331,7 @@ public class ListTodo extends javax.swing.JFrame {
      */
     private void editar() {
         if (jtbTodos.getSelectedRow() > -1) {
-            Todo todo = todoDAO.findById((Long) tableModel.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
+            Todo todo = todoDAO.findById(getIdTodo());
             EditTodo editTodo = new EditTodo(this, true, todo, FormState.ALTERACAO);
             editTodo.setVisible(true);
 
@@ -346,6 +346,15 @@ public class ListTodo extends javax.swing.JFrame {
         } else {
             messages.messageDialogWarning("Selecione um registro para edição!", "Atenção");
         }
+    }
+    
+    /**
+     * Método responsável por retornar um ID da Todo selecionada pelo usuário.
+     * @return Long - ID Todo
+     * @author Jonathan H. Medeiros
+     */
+    private Long getIdTodo() {
+        return (Long) tableModel.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID);
     }
 
 }
