@@ -5,7 +5,7 @@ CRUD desenvolvido em Java utilizando Swing com JPA implementação Hibernate e b
 [![node](https://img.shields.io/badge/Maven-3.5.4-steelblue.svg)](https://maven.apache.org/download.cgi)
 [![node](https://img.shields.io/badge/Plugin-Lombok_1.18.6-indianRed.svg)](https://projectlombok.org/)
 [![node](https://img.shields.io/badge/Database-MySQL--5.1.46-blue.svg)](https://www.mysql.com/downloads/)
-[![node](https://img.shields.io/badge/Hibernate-5.4.1--Final-peru.svg)](https://www.mysql.com/downloads/)
+[![node](https://img.shields.io/badge/Hibernate-5.4.1--Final-peru.svg)](http://hibernate.org/)
 
 ## Descrição:
 A aplicação toda consiste em duas únicas telas, uma tela de listagem de tarefas, e uma tela para cadastrar e editar tarefas.
