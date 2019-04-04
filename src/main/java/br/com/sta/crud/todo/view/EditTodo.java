@@ -3,6 +3,7 @@ package br.com.sta.crud.todo.view;
 import br.com.sta.crud.todo.model.Todo;
 import br.com.sta.crud.todo.utils.FormState;
 import br.com.sta.crud.todo.utils.LimitDocument;
+import br.com.sta.crud.todo.view.utils.GenericDialog;
 import java.awt.Frame;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  * model todo.
  * @author Jonathan H. Medeiros
  */
-public class EditTodo extends javax.swing.JDialog {
+public class EditTodo extends GenericDialog {
     
     private final Todo todo;
     private final int ESTADO_DO_FORM;

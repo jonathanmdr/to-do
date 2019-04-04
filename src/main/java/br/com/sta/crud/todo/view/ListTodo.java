@@ -6,6 +6,7 @@ import br.com.sta.crud.todo.model.TodoTableModel;
 import br.com.sta.crud.todo.utils.FormState;
 import br.com.sta.crud.todo.utils.Messages;
 import br.com.sta.crud.todo.utils.TableRenderer;
+import br.com.sta.crud.todo.view.utils.GenericFrame;
 import com.toedter.calendar.JDateChooserCellEditor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -19,7 +20,7 @@ import javax.swing.table.TableColumn;
  * model todo.
  * @author Jonathan H. Medeiros
  */
-public class ListTodo extends javax.swing.JFrame {
+public class ListTodo extends GenericFrame {
 
     private TodoDAO todoDAO;
     private TodoTableModel tableModel;
