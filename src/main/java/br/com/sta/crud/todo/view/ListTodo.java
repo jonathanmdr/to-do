@@ -26,10 +26,15 @@ public class ListTodo extends javax.swing.JFrame {
     private JDateChooserCellEditor dateChooser;
     private TableRenderer renderer;
     private Messages messages;
+    
+    private static final boolean IGNORA_MSG_LISTA_VAZIA = false;
+    private static final boolean EXIBE_MSG_LISTA_VAZIA = true;
 
     public ListTodo() {
         initComponents();
         initApp();
+        formatJTable();
+        listar(IGNORA_MSG_LISTA_VAZIA);
     }
 
     @SuppressWarnings("unchecked")
@@ -146,7 +151,7 @@ public class ListTodo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        listar(true);
+        listar(EXIBE_MSG_LISTA_VAZIA);
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -187,8 +192,7 @@ public class ListTodo extends javax.swing.JFrame {
     }
 
     /**
-     * Método responsável por injetar as dependências necessárias juntamente 
-     * com as configurações iniciais da classe.
+     * Método responsável por injetar as dependências necessárias da classe.
      * @author Jonathan H. Medeiros
      */
     private void initApp() {
@@ -196,10 +200,7 @@ public class ListTodo extends javax.swing.JFrame {
         tableModel = new TodoTableModel();
         dateChooser = new JDateChooserCellEditor();
         renderer = new TableRenderer();
-        messages = Messages.getMessages(this);
-
-        formatJTable();
-        listar(false);
+        messages = Messages.getInstance(this);        
     }
 
     /**
@@ -253,7 +254,7 @@ public class ListTodo extends javax.swing.JFrame {
                 Todo todo = todoDAO.findById((Long) jtbTodos.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
                 todoDAO.delete(todo);
 
-                listar(false);
+                listar(IGNORA_MSG_LISTA_VAZIA);
                 
                 messages.messageDialogInformation("Registro excluído com sucesso!", "Sucesso");
             }
@@ -270,7 +271,7 @@ public class ListTodo extends javax.swing.JFrame {
     private void salvar(Todo todo) {
         if (validarCamposObrigatoriosVazios(todo)) {
             todoDAO.save(todo);
-            listar(false);
+            listar(IGNORA_MSG_LISTA_VAZIA);
             messages.messageDialogInformation("Salvo com sucesso!", "Sucesso");
         }
     }
@@ -283,7 +284,7 @@ public class ListTodo extends javax.swing.JFrame {
     private void atualizar(Todo todo) {
         if (validarCamposObrigatoriosVazios(todo)) {
             todoDAO.update(todo);
-            listar(false);
+            listar(IGNORA_MSG_LISTA_VAZIA);
             messages.messageDialogInformation("Atualizado com sucesso!", "Sucesso");
         }
     }
@@ -330,7 +331,7 @@ public class ListTodo extends javax.swing.JFrame {
      */
     private void editar() {
         if (jtbTodos.getSelectedRow() > -1) {
-            Todo todo = todoDAO.findById((Long) jtbTodos.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
+            Todo todo = todoDAO.findById((Long) tableModel.getValueAt(jtbTodos.getSelectedRow(), TodoTableModel.COL_ID));
             EditTodo editTodo = new EditTodo(this, true, todo, FormState.ALTERACAO);
             editTodo.setVisible(true);
 
