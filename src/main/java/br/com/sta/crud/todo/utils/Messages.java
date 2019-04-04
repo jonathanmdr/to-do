@@ -31,7 +31,7 @@ public class Messages {
      * @return instance
      * @author Jonathan H. Medeiros
      */
-    public static Messages getMessages(Component component) {
+    public static Messages getInstance(Component component) {
         if (instance == null) {
             Messages.instance = new Messages(component);
         }
