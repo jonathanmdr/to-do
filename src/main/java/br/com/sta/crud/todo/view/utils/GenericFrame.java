@@ -1,9 +1,5 @@
 package br.com.sta.crud.todo.view.utils;
 
-import br.com.sta.crud.todo.utils.Constants;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.net.URL;
 import javax.swing.JFrame;
 
 /**
@@ -17,22 +13,10 @@ public class GenericFrame extends JFrame {
      * da classe.
      * @author Jonathan H. Medeiros
      */
-    public GenericFrame() {
-        super.setIconImage(getImageLogo());
+    public GenericFrame() {        
+        super.setIconImage(ImageResource.getInstance().getImageLogo());
         super.removeNotify();
         super.setResizable(false);
-    }
-    
-    /**
-     * Método responsável por carregar o logotipo.
-     * @return Image - Logotipo.
-     * @author Jonathan H. Medeiros
-     */
-    private Image getImageLogo() {
-        URL url = this.getClass().getClassLoader().getResource(Constants.ICON);
-        Image logo = Toolkit.getDefaultToolkit().getImage(url);
-        
-        return logo;
-    }
+    }        
     
 }

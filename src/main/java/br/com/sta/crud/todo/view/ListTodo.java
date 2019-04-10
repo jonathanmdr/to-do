@@ -7,13 +7,11 @@ import br.com.sta.crud.todo.utils.FormState;
 import br.com.sta.crud.todo.utils.Messages;
 import br.com.sta.crud.todo.utils.TableRenderer;
 import br.com.sta.crud.todo.view.utils.GenericFrame;
-import com.toedter.calendar.JDateChooserCellEditor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.table.TableColumn;
 
 /**
  * Classe responsável por acionar as operações CRUD da classe DAO pertinente ao
@@ -24,7 +22,6 @@ public class ListTodo extends GenericFrame {
 
     private TodoDAO todoDAO;
     private TodoTableModel tableModel;
-    private JDateChooserCellEditor dateChooser;
     private TableRenderer renderer;
     private Messages messages;
     
@@ -199,7 +196,6 @@ public class ListTodo extends GenericFrame {
     private void initApp() {
         todoDAO = new TodoDAO();
         tableModel = new TodoTableModel();
-        dateChooser = new JDateChooserCellEditor();
         renderer = new TableRenderer();
         messages = Messages.getInstance(this);        
     }
@@ -210,14 +206,6 @@ public class ListTodo extends GenericFrame {
      */
     private void formatJTable() {
         jtbTodos.setModel(tableModel);
-        
-        TableColumn colDataCriacao = jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_CRIACAO);
-        TableColumn colDataEdicao = jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_EDICAO);
-        TableColumn colDataConclusao = jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_DATA_CONCLUSAO);
-        
-        colDataCriacao.setCellEditor(dateChooser);
-        colDataEdicao.setCellEditor(dateChooser);
-        colDataConclusao.setCellEditor(dateChooser);
 
         jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_ID).setPreferredWidth(80);
         jtbTodos.getColumnModel().getColumn(TodoTableModel.COL_TITULO).setPreferredWidth(275);

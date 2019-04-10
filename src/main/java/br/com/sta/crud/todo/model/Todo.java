@@ -1,13 +1,11 @@
 package br.com.sta.crud.todo.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -42,15 +40,12 @@ public class Todo {
     private String descricao;
     
     @Column(name = "data_criacao")
-    @Temporal(TemporalType.DATE)
-    private Date dataCriacao;
+    private LocalDate dataCriacao;
     
     @Column(name = "data_edicao")
-    @Temporal(TemporalType.DATE)
-    private Date dataEdicao;
+    private LocalDate dataEdicao;
     
     @Column(name = "data_conclusao")
-    @Temporal(TemporalType.DATE)
-    private Date dataConclusao;      
+    private LocalDate dataConclusao;
     
 }

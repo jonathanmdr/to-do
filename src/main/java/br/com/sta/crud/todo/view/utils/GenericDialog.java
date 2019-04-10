@@ -1,10 +1,6 @@
 package br.com.sta.crud.todo.view.utils;
 
-import br.com.sta.crud.todo.utils.Constants;
 import java.awt.Frame;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.net.URL;
 import javax.swing.JDialog;
 
 /**
@@ -19,7 +15,7 @@ public class GenericDialog extends JDialog {
      * @author Jonathan H. Medeiros
      */
     public GenericDialog() {
-        super.setIconImage(getImageLogo());
+        super.setIconImage(ImageResource.getInstance().getImageLogo());
     }
     
     /**
@@ -31,19 +27,7 @@ public class GenericDialog extends JDialog {
      */
     public GenericDialog(Frame owner, boolean modal) {
         super(owner, modal);                       
-        super.setIconImage(getImageLogo());
-    }
-    
-    /**
-     * Método responsável por carregar o logotipo.
-     * @return Image - Logotipo.
-     * @author Jonathan H. Medeiros
-     */
-    private Image getImageLogo() {
-        URL url = this.getClass().getClassLoader().getResource(Constants.ICON);
-        Image logo = Toolkit.getDefaultToolkit().getImage(url);
-        
-        return logo;
+        super.setIconImage(ImageResource.getInstance().getImageLogo());
     }
     
 }

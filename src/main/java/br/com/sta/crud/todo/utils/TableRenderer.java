@@ -6,7 +6,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Classe responsável por modificar o renderer das linhas a jTable
+ * Classe responsável por modificar o renderer das linhas da jTable
  * @author Jonathan H. Medeiros
  */
 public class TableRenderer extends DefaultTableCellRenderer {
@@ -20,7 +20,7 @@ public class TableRenderer extends DefaultTableCellRenderer {
             comp.setBackground(Color.WHITE);
         } else {
             comp.setForeground(Color.BLACK);
-            comp.setBackground(Color.GRAY);
+            comp.setBackground(Color.LIGHT_GRAY);
         }
         
         if (isSelected) {

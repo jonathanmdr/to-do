@@ -1,6 +1,6 @@
 package br.com.sta.crud.todo.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -20,7 +20,7 @@ public class TodoTableModel extends AbstractTableModel {
 
     private final String[] colNames = {"Código", "Título", "Criação", "Alteração", "Conclusão"};
 
-    private final Class<?>[] colTypes = {Long.class, String.class, Date.class, Date.class, Date.class};
+    private final Class<?>[] colTypes = {Long.class, String.class, LocalDate.class, LocalDate.class, LocalDate.class};
 
     public TodoTableModel() {
     }

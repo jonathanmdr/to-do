@@ -5,6 +5,7 @@ import br.com.sta.crud.todo.utils.FormState;
 import br.com.sta.crud.todo.utils.LimitDocument;
 import br.com.sta.crud.todo.view.utils.GenericDialog;
 import java.awt.Frame;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -228,10 +229,10 @@ public class EditTodo extends GenericDialog {
         this.todo.setStatus(jCBStatus.isSelected());
         
         if (this.ESTADO_DO_FORM == FormState.INCLUSAO) {
-            this.todo.setDataCriacao(new Date());
+            this.todo.setDataCriacao(LocalDate.now());
         }
         
-        this.todo.setDataEdicao(this.ESTADO_DO_FORM == FormState.INCLUSAO ? null : new Date());
+        this.todo.setDataEdicao(this.ESTADO_DO_FORM == FormState.INCLUSAO ? null : LocalDate.now());
         this.todo.setDataConclusao(retornaDataConclusao());
         
         return this.todo;
@@ -286,11 +287,11 @@ public class EditTodo extends GenericDialog {
      * @return data de conslusão da task.
      * @author Jonathan H. Medeiros
      */
-    private Date retornaDataConclusao() {
-        Date data = null;
+    private LocalDate retornaDataConclusao() {
+        LocalDate data = null;
         
         if (jCBStatus.isSelected()) {
-            data = new Date();
+            data = LocalDate.now();
         }
         
         return data;
