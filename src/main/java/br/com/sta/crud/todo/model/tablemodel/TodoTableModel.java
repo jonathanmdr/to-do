@@ -1,5 +1,6 @@
-package br.com.sta.crud.todo.model;
+package br.com.sta.crud.todo.model.tablemodel;
 
+import br.com.sta.crud.todo.model.Todo;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;

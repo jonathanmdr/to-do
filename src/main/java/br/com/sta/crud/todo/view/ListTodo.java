@@ -2,7 +2,7 @@ package br.com.sta.crud.todo.view;
 
 import br.com.sta.crud.todo.dao.TodoDAO;
 import br.com.sta.crud.todo.model.Todo;
-import br.com.sta.crud.todo.model.TodoTableModel;
+import br.com.sta.crud.todo.model.tablemodel.TodoTableModel;
 import br.com.sta.crud.todo.utils.FormState;
 import br.com.sta.crud.todo.utils.Messages;
 import br.com.sta.crud.todo.utils.TableRenderer;
