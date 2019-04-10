@@ -13,6 +13,7 @@ import javax.persistence.Query;
 public class TodoDAO {
     
     private final EntityManager entityManager;
+    private final String TODO;
 
     /**
      * Método responsável por injetar as dependências necessárias da classe.
@@ -20,6 +21,7 @@ public class TodoDAO {
      */
     public TodoDAO() {
         this.entityManager = ManagerFactory.getInstance().getEntityManager();
+        this.TODO = Todo.class.getName();
     }
     
     /**
@@ -29,7 +31,7 @@ public class TodoDAO {
      * @author Jonathan H. Medeiros
      */
     public Todo findById(Long id) {
-        Query query = entityManager.createQuery("From ".concat(Todo.class.getName()).concat(" Where id = ?1"));
+        Query query = entityManager.createQuery("From ".concat(TODO).concat(" Where id = ?1"));
         query.setParameter(1, id);
         return (Todo) query.getSingleResult();
     }
@@ -40,7 +42,7 @@ public class TodoDAO {
      * @author Jonathan H. Medeiros
      */
     public List<Todo> findAll() {
-        Query query = entityManager.createQuery("From ".concat(Todo.class.getName()));
+        Query query = entityManager.createQuery("From ".concat(TODO));
         return (List<Todo>) query.getResultList();
     }
 
